@@ -273,7 +273,7 @@ def api_import():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-CLOUD_STORE_URL = "http://localhost:8000"  # Update with Vercel/Railway URL later
+CLOUD_STORE_URL = "https://web-production-c02ee1.up.railway.app"  # Railway Production URL
 
 @app.route("/api/cloud_store", methods=["GET"])
 def api_cloud_store():
