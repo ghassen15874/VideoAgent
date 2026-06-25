@@ -67,6 +67,63 @@ header p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto;}
 .job-running{background:rgba(6,182,212,.2);color:var(--accent2);}
 .job-error{background:rgba(239,68,68,.2);color:var(--red);}
 .empty-state{text-align:center;padding:40px;color:var(--muted);}
+/* --- Strategy Store Pro Max UI --- */
+.store-card {
+  position: relative;
+  background: rgba(26, 29, 45, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.store-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  animation: shimmer 3s infinite linear;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.mode-toggle {
+  display: flex; background: rgba(13, 13, 24, 0.8); border-radius: 30px; padding: 4px;
+  border: 1px solid var(--border);
+}
+.mode-btn {
+  padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;
+  color: var(--muted); transition: all 0.3s ease;
+}
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+}
+.store-search {
+  padding: 8px 14px !important; border-radius: 20px !important; border: 1px solid var(--border) !important;
+  background: rgba(13, 13, 24, 0.5) !important; color: #fff !important; font-size: 13px !important;
+  width: 200px; transition: all 0.3s ease !important;
+}
+.store-search:focus {
+  border-color: var(--accent2) !important; box-shadow: 0 0 10px rgba(6, 182, 212, 0.3) !important;
+  width: 250px; outline: none;
+}
+.store-row {
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 18px;
+  background: rgba(13, 13, 24, 0.4); border-radius: 12px; margin-bottom: 10px;
+  border: 1px solid transparent; transition: all 0.3s ease;
+}
+.store-row:hover {
+  background: rgba(26, 29, 45, 0.8); border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.store-badge-verified {
+  font-size: 10px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.1);
+  padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 6px;
+}
+.store-badge-verified::before {
+  content: '✓'; font-weight: 900;
+}
 @media(max-width:600px){.options-row{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
@@ -183,19 +240,26 @@ header p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto;}
     <div id="jobsList"><div class="empty-state"><p>🎯 Paste a URL above to start!</p></div></div>
   </div>
 
-  <div class="card">
-    <div class="card-title" style="display:flex; justify-content:space-between; align-items:center">
-      <span>📦 Strategy Store</span>
-      <div style="display:flex; gap:10px; align-items:center">
-        <span id="storeCount" style="color:var(--accent2); font-weight:700">0 sites</span>
-        <label class="copy-btn" style="cursor:pointer; font-weight:600; margin:0">
+  <div class="card store-card">
+    <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+      <div style="display:flex; align-items:center; gap: 15px;">
+        <span style="font-size: 15px; color: #fff;">📦 Strategy Store</span>
+        <div class="mode-toggle">
+          <div class="mode-btn active" id="btnLocalStore" onclick="switchStore('local')">Local Memory</div>
+          <div class="mode-btn" id="btnCloudStore" onclick="switchStore('cloud')">☁️ Cloud Community</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center">
+        <input type="text" id="storeSearch" class="store-search" placeholder="Search domains..." onkeyup="handleStoreSearch()">
+        <span id="storeCount" style="color:var(--accent2); font-weight:700; font-size: 13px;">0 sites</span>
+        <label class="copy-btn" id="btnImportVhunter" style="cursor:pointer; font-weight:600; margin:0; background: rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.4); color: var(--accent2);">
           📥 Import .vhunter
           <input type="file" id="importFile" accept=".vhunter" style="display:none" onchange="importStrategy(event)">
         </label>
       </div>
     </div>
-    <div id="storeList" style="max-height: 300px; overflow-y: auto; margin-top: 10px;">
-      <div class="empty-state"><p>No strategies in memory yet.</p></div>
+    <div id="storeList" style="max-height: 350px; overflow-y: auto; padding-right: 5px;">
+      <div class="empty-state"><p>No strategies yet.</p></div>
     </div>
   </div>
 </div>
@@ -422,20 +486,85 @@ function refreshJobs(){
   });
 }
 // ── Store / Memory ──────────────────────────────────────────────────────────
+let currentStoreMode = 'local';
+let currentStoreSearch = '';
+
+function switchStore(mode){
+  currentStoreMode = mode;
+  document.getElementById('btnLocalStore').classList.toggle('active', mode==='local');
+  document.getElementById('btnCloudStore').classList.toggle('active', mode==='cloud');
+  document.getElementById('btnImportVhunter').style.display = mode==='local' ? 'block' : 'none';
+  refreshStore();
+}
+
+function handleStoreSearch(){
+  currentStoreSearch = document.getElementById('storeSearch').value.toLowerCase();
+  refreshStore();
+}
+
 function refreshStore(){
-  fetch('/api/store').then(r=>r.json()).then(sites=>{
-    if(!sites || !sites.length) return;
-    document.getElementById('storeCount').textContent = sites.length + (sites.length===1?' site':' sites');
-    document.getElementById('storeList').innerHTML = sites.map(s=>`
-      <div class="job-row" style="justify-content:space-between">
+  const ep = currentStoreMode === 'local' ? '/api/store' : ('/api/cloud_store?search=' + encodeURIComponent(currentStoreSearch));
+  
+  fetch(ep).then(r=>r.json()).then(sites=>{
+    if(sites.error){ document.getElementById('storeList').innerHTML=`<div class="empty-state" style="color:var(--accent-red)"><p>${sites.error}</p></div>`; return; }
+    
+    // Apply local search filtering (cloud filtering is done via API)
+    let filtered = sites;
+    if(currentStoreMode === 'local' && currentStoreSearch) {
+      filtered = sites.filter(s => s.domain.toLowerCase().includes(currentStoreSearch));
+    }
+    
+    document.getElementById('storeCount').textContent = filtered.length + (filtered.length===1?' site':' sites');
+    if(!filtered.length) {
+      document.getElementById('storeList').innerHTML='<div class="empty-state"><p>No strategies found.</p></div>';
+      return;
+    }
+    
+    document.getElementById('storeList').innerHTML = filtered.map(s=>`
+      <div class="store-row">
         <div style="display:flex; flex-direction:column">
-          <strong style="color:var(--text);font-size:14px">${s.domain}</strong>
-          <span style="font-size:10px;color:var(--muted)">Used ${s.use_count} times · ${(s.success_rate*100).toFixed(0)}% success</span>
+          <strong style="color:#f8fafc; font-size:15px; letter-spacing: 0.5px;">${s.domain}</strong>
+          ${currentStoreMode==='local' 
+            ? `<span style="font-size:11px;color:var(--muted); margin-top: 4px;">Used ${s.use_count} times · ${(s.success_rate*100).toFixed(0)}% success</span>`
+            : `<span class="store-badge-verified">Verified Community Strategy</span>`
+          }
         </div>
-        <button class="copy-btn" onclick="exportStrategy('${s.domain}')">📤 Export</button>
+        <div style="display:flex; gap: 8px;">
+          ${currentStoreMode==='local' 
+            ? `<button class="copy-btn" onclick="publishStrategy('${s.domain}')" style="background: rgba(124, 58, 237, 0.2); border-color: rgba(124, 58, 237, 0.4); color: #c4b5fd;">☁️ Publish</button>
+               <button class="copy-btn" onclick="exportStrategy('${s.domain}')" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); color: #fff;">📤 Export</button>`
+            : `<button class="copy-btn" onclick="importFromCloud('${s.domain}')" style="background: linear-gradient(135deg, var(--accent2), #3b82f6); color:#000; border:none; box-shadow: 0 2px 10px rgba(6, 182, 212, 0.4); font-weight: 700;">📥 Auto-Import</button>`
+          }
+        </div>
       </div>
     `).join('');
   }).catch(e=>console.error('Store error:', e));
+}
+
+function publishStrategy(domain){
+  if(!confirm(`Send the strategy for ${domain} to the Community Store? It will be reviewed by admins.`)) return;
+  fetch('/api/cloud_publish', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({domain})
+  }).then(r=>r.json()).then(data=>{
+    if(data.error) alert('Error: ' + data.error);
+    else alert('✅ ' + data.message);
+  }).catch(e=>alert('Failed: '+e));
+}
+
+function importFromCloud(domain){
+  fetch('/api/cloud_store?search=' + domain).then(r=>r.json()).then(sites=>{
+    const site = sites.find(s=>s.domain === domain);
+    if(!site) return alert("Could not fetch strategy details.");
+    
+    fetch('/api/import', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(site)
+    }).then(r=>r.json()).then(res=>{
+      if(res.error) alert(res.error);
+      else { alert(`✅ Successfully auto-imported strategy for: ${res.domain}`); switchStore('local'); }
+    });
+  });
 }
 
 function exportStrategy(domain){
@@ -458,8 +587,7 @@ function importStrategy(event){
       const data = JSON.parse(e.target.result);
       if(!data.domain || !data.strategy) throw new Error("Invalid .vhunter format");
       fetch('/api/import', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
       }).then(r=>r.json()).then(res=>{
         if(res.error) alert(res.error);
