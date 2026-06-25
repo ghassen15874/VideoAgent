@@ -273,6 +273,40 @@ def api_import():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+CLOUD_STORE_URL = "http://localhost:8000"  # Update with Vercel/Railway URL later
+
+@app.route("/api/cloud_store", methods=["GET"])
+def api_cloud_store():
+    search = request.args.get("search", "")
+    import requests
+    try:
+        r = requests.get(f"{CLOUD_STORE_URL}/api/strategies?search={search}", timeout=5)
+        return jsonify(r.json())
+    except Exception as e:
+        return jsonify({"error": f"Cloud Store unreachable: {e}"}), 500
+
+@app.route("/api/cloud_publish", methods=["POST"])
+def api_cloud_publish():
+    data = request.get_json(force=True)
+    domain = data.get("domain")
+    import sqlite3, requests
+    db_path = "memory/sites.db"
+    try:
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        row = conn.execute("SELECT strategy, signal_map FROM site_memory WHERE domain=?", (domain,)).fetchone()
+        if not row: return jsonify({"error": "Local strategy not found"}), 404
+        
+        payload = {
+            "domain": domain,
+            "strategy": json.loads(row["strategy"]),
+            "signal_map": json.loads(row["signal_map"])
+        }
+        r = requests.post(f"{CLOUD_STORE_URL}/api/strategies/submit", json=payload, timeout=5)
+        return jsonify(r.json())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/api/jobs")
 def api_jobs():
     summary = [
