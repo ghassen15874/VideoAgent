@@ -124,6 +124,32 @@ header p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto;}
 .store-badge-verified::before {
   content: '✓'; font-weight: 900;
 }
+/* --- Custom Toast Alerts --- */
+#toastContainer {
+  position: fixed; top: 20px; right: 20px; z-index: 9999;
+  display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+}
+.toast {
+  background: rgba(18, 18, 26, 0.9); backdrop-filter: blur(8px);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 20px; color: #fff; font-size: 14px; font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  display: flex; align-items: center; gap: 12px;
+  transform: translateX(120%); animation: slideIn 0.3s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto; max-width: 350px; line-height: 1.4;
+}
+.toast.toast-hiding {
+  animation: slideOut 0.3s forwards ease-in;
+}
+.toast-success { border-left: 4px solid var(--green); }
+.toast-error { border-left: 4px solid var(--red); }
+.toast-info { border-left: 4px solid var(--accent2); }
+@keyframes slideIn {
+  to { transform: translateX(0); }
+}
+@keyframes slideOut {
+  to { transform: translateX(120%); opacity: 0; }
+}
 @media(max-width:600px){.options-row{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
@@ -271,6 +297,27 @@ let pollInterval  = null;
 let failCount     = 0;
 let batchPollInterval = null;
 
+// ── Custom Toasts ──────────────────────────────────────────────────────────
+function showToast(msg, type='info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  
+  let icon = 'ℹ️';
+  if (type === 'success') icon = '✅';
+  if (type === 'error') icon = '❌';
+  if (msg.includes('✅')) { icon = ''; msg = msg.replace('✅', '').trim(); }
+  if (msg.includes('❌')) { icon = ''; msg = msg.replace('❌', '').trim(); }
+  
+  toast.innerHTML = `${icon ? `<span style="font-size:16px">${icon}</span>` : ''} <span>${msg}</span>`;
+  container.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('toast-hiding');
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
 // ── Mode toggle ────────────────────────────────────────────────────────────
 function setMode(mode) {
   currentMode = mode;
@@ -309,91 +356,85 @@ function setFormat(fmt, el){
 
 // ── Start ──────────────────────────────────────────────────────────────────
 function startAnalysis(){
-  if (currentMode === 'batch') { startBatch(); return; }
-
-  const url = document.getElementById('urlInput').value.trim();
-  if(!url.startsWith('http')){ alert('Please enter a valid URL starting with http'); return; }
-  if(pollInterval){ clearInterval(pollInterval); pollInterval = null; }
-  failCount = 0;
-
   const btn = document.getElementById('analyzeBtn');
-  btn.disabled = true; btn.classList.add('loading');
-
-  ['statsGrid','mediaSection','metaSection','strategySection','scriptSection','executionLogsSection','videoReadySection']
-    .forEach(id => document.getElementById(id).style.display = 'none');
-  document.getElementById('statusCard').classList.add('visible');
-  setStatus('running','🌐 Opening browser — intercepting network traffic…');
-
-  fetch('/api/analyze',{
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({url, format: currentFormat, quality: document.getElementById('qualitySelect').value})
-  })
-  .then(r=>r.json())
-  .then(data=>{ if(data.error){setStatus('error',data.error);resetBtn();return;} pollJob(data.job_id); })
-  .catch(e=>{ setStatus('error','Request failed: '+e); resetBtn(); });
+  const quality = document.getElementById('qualitySelect').value;
+  
+  if (currentMode === 'single') {
+    const url = document.getElementById('urlInput').value.trim();
+    if(!url){ showToast('Please enter a URL first', 'error'); return; }
+    
+    btn.disabled=true; btn.classList.add('loading');
+    document.getElementById('statusCard').classList.add('visible');
+    document.getElementById('statsGrid').style.display='none';
+    ['executionLogsSection','strategySection','scriptSection','mediaSection','metaSection','videoReadySection'].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.style.display='none';
+    });
+    
+    fetch('/api/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({url, format:currentFormat, quality})
+    }).then(r=>r.json()).then(data=>{
+      if(data.error){ setStatus('error','❌ '+data.error); resetBtn(); showToast(data.error, 'error'); }
+      else pollJob(data.job_id);
+    }).catch(e=>{setStatus('error','❌ Request failed'); resetBtn(); showToast('Request failed', 'error');});
+    
+  } else {
+    // Batch Mode
+    const urls = getBatchUrls();
+    if(!urls.length){ showToast('Please enter at least one valid URL for batch mode', 'error'); return; }
+    
+    btn.disabled=true; btn.classList.add('loading');
+    
+    fetch('/api/batch',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({urls, format:currentFormat, quality})
+    }).then(r=>r.json()).then(data=>{
+      if(data.error){ showToast(data.error, 'error'); resetBtn(); }
+      else {
+        showToast('Batch job started! Check Recent Jobs below.', 'success');
+        document.getElementById('batchInput').value = '';
+        pollBatchJobs(data.batch_ids);
+      }
+    }).catch(e=>{ showToast('Batch request failed', 'error'); resetBtn(); });
+  }
 }
 
-// ── Batch ──────────────────────────────────────────────────────────────────
-function startBatch(){
-  const urls = getBatchUrls();
-  if(!urls.length){ alert('Please enter at least one valid URL (starting with http)'); return; }
-
-  const btn = document.getElementById('analyzeBtn');
-  btn.disabled = true; btn.classList.add('loading');
-  if(batchPollInterval){ clearInterval(batchPollInterval); }
-
-  fetch('/api/batch',{
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({urls, format: currentFormat, quality: document.getElementById('qualitySelect').value})
-  })
-  .then(r=>r.json())
-  .then(data=>{
-    if(data.error){ alert('Batch error: '+data.error); resetBtn(); return; }
-    renderBatchQueue(data.batch_ids);
-    pollBatch(data.batch_ids);
-  })
-  .catch(e=>{ alert('Request failed: '+e); resetBtn(); });
-}
-
-function renderBatchQueue(ids){
-  document.getElementById('jobsList').innerHTML =
-    `<div style="font-size:12px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">
-      📋 Batch Queue — ${ids.length} items
-     </div>` +
-    ids.map((id,i) => {
-      const url = (document.getElementById('batchInput').value||'').split('\n').map(u=>u.trim()).filter(u=>u.startsWith('http'))[i] || id;
-      return `<div id="brow-${id}" class="job-row">
-        <span style="font-size:10px;color:var(--muted);min-width:20px">#${i+1}</span>
-        <div class="job-url" title="${url}">${url}</div>
-        <span id="bbadge-${id}" class="job-badge job-queued" style="background:rgba(100,116,139,.2);color:var(--muted)">queued</span>
-      </div>`;
-    }).join('');
-}
-
-function pollBatch(ids){
+// ── Batch polling ──────────────────────────────────────────────────────────
+function pollBatchJobs(ids) {
+  if (batchPollInterval) clearInterval(batchPollInterval);
+  
+  const list = document.getElementById('jobsList');
+  list.innerHTML = ids.map(id => `
+    <div class="job-row" id="brow-${id}">
+      <div class="job-url" id="burl-${id}">Job ${id}</div>
+      <span class="job-badge" id="bbadge-${id}">⏸ queued</span>
+    </div>
+  `).join('');
+  
   let allDone = false;
-  batchPollInterval = setInterval(()=>{
+  batchPollInterval = setInterval(() => {
     Promise.all(ids.map(id => fetch('/api/status/'+id).then(r=>r.json()).catch(()=>null)))
-    .then(results=>{
-      results.forEach((job,i)=>{
+    .then(results => {
+      results.forEach((job, i) => {
         if(!job) return;
         const id = ids[i];
         const badge = document.getElementById('bbadge-'+id);
         if(!badge) return;
+        
+        if(job.url && document.getElementById('burl-'+id).textContent.startsWith('Job')){
+          document.getElementById('burl-'+id).textContent = job.url;
+        }
+        
         if(job.status==='running'){
           badge.className='job-badge job-running'; badge.textContent='⏳ running';
         } else if(job.status==='done'){
           const ok = job.result?.success;
           badge.className='job-badge '+(ok?'job-done':'job-error');
           badge.textContent = ok ? '✅ done' : '❌ failed';
-          const row = document.getElementById('brow-'+id);
-          if(row && ok && job.result?.download_url){
-            row.title = 'Saved: '+job.result.download_url;
-          }
         } else if(job.status==='error'){
           badge.className='job-badge job-error'; badge.textContent='❌ error';
-        } else if(job.status==='queued'){
-          badge.textContent='⏸ queued';
         }
       });
       allDone = results.every(j=>j && j.status!=='running' && j.status!=='queued');
@@ -401,12 +442,13 @@ function pollBatch(ids){
         const done = results.filter(j=>j?.result?.success).length;
         document.getElementById('batchStatus').textContent =
           `✅ Batch complete — ${done}/${ids.length} downloaded successfully`;
+        showToast(`Batch complete: ${done} successful out of ${ids.length}`, 'info');
       }
     });
   }, 2500);
 }
 
-// ── Single job poll (unchanged) ────────────────────────────────────────────
+// ── Single job poll ────────────────────────────────────────────
 function pollJob(jobId){
   const stages = [
     '🌐 Browser opened — loading page…','🕸️ Intercepting XHR & Fetch requests…',
@@ -429,10 +471,10 @@ function pollJob(jobId){
         logsEl.textContent = job.live_logs;
         logsEl.scrollTop = logsEl.scrollHeight;
       }
-      if(job.status==='done'){clearInterval(pollInterval);showResults(job.result);resetBtn();refreshJobs();}
-      else if(job.status==='error'){clearInterval(pollInterval);setStatus('error','❌ '+(job.error||'Unknown error'));resetBtn();refreshJobs();}
+      if(job.status==='done'){clearInterval(pollInterval);showResults(job.result);resetBtn();refreshJobs(); if(job.result.success) showToast('Video Successfully Downloaded!', 'success'); else showToast('Download Failed', 'error'); }
+      else if(job.status==='error'){clearInterval(pollInterval);setStatus('error','❌ '+(job.error||'Unknown error'));resetBtn();refreshJobs(); showToast(job.error||'Unknown error', 'error'); }
     })
-    .catch(e=>{failCount++;if(failCount>5){clearInterval(pollInterval);setStatus('error','❌ '+e);resetBtn();}});
+    .catch(e=>{failCount++;if(failCount>5){clearInterval(pollInterval);setStatus('error','❌ '+e);resetBtn(); showToast('Connection Error', 'error'); }});
   }, 2000);
 }
 
@@ -472,7 +514,7 @@ function showResults(res){
   if(res.meta){ document.getElementById('metaSection').style.display='block'; document.getElementById('metaJson').textContent=JSON.stringify(res.meta,null,2); }
 }
 
-function copyScript(){ navigator.clipboard.writeText(document.getElementById('scriptContent').textContent).then(()=>alert('Script copied!')); }
+function copyScript(){ navigator.clipboard.writeText(document.getElementById('scriptContent').textContent).then(()=>showToast('Script copied to clipboard!', 'success')); }
 function setStatus(type,msg){ document.getElementById('statusDot').className='status-dot '+(type==='running'?'dot-running':type==='done'?'dot-done':'dot-error'); document.getElementById('statusText').textContent=msg; }
 function resetBtn(){ const b=document.getElementById('analyzeBtn'); b.disabled=false; b.classList.remove('loading'); }
 function refreshJobs(){
@@ -547,35 +589,36 @@ function publishStrategy(domain){
     method: 'POST', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({domain})
   }).then(r=>r.json()).then(data=>{
-    if(data.error) alert('Error: ' + data.error);
-    else alert('✅ ' + data.message);
-  }).catch(e=>alert('Failed: '+e));
+    if(data.error) showToast('Error: ' + data.error, 'error');
+    else showToast(data.message, 'success');
+  }).catch(e=>showToast('Failed to publish: '+e, 'error'));
 }
 
 function importFromCloud(domain){
   fetch('/api/cloud_store?search=' + domain).then(r=>r.json()).then(sites=>{
     const site = sites.find(s=>s.domain === domain);
-    if(!site) return alert("Could not fetch strategy details.");
+    if(!site) return showToast("Could not fetch strategy details.", 'error');
     
     fetch('/api/import', {
       method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(site)
     }).then(r=>r.json()).then(res=>{
-      if(res.error) alert(res.error);
-      else { alert(`✅ Successfully auto-imported strategy for: ${res.domain}`); switchStore('local'); }
+      if(res.error) showToast(res.error, 'error');
+      else { showToast(`Successfully auto-imported strategy for: ${res.domain}`, 'success'); switchStore('local'); }
     });
   });
 }
 
 function exportStrategy(domain){
   fetch('/api/export/'+domain).then(r=>r.json()).then(data=>{
-    if(data.error){ alert(data.error); return; }
+    if(data.error){ showToast(data.error, 'error'); return; }
     const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = domain + '.vhunter';
     a.click();
-  }).catch(e=>alert('Export failed: '+e));
+    showToast(`Exported ${domain}.vhunter`, 'success');
+  }).catch(e=>showToast('Export failed: '+e, 'error'));
 }
 
 function importStrategy(event){
