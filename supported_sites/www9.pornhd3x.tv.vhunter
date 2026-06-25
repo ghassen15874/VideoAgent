@@ -1,0 +1,158 @@
+{
+  "vhunter_version": 1,
+  "domain": "www9.pornhd3x.tv",
+  "strategy": {
+    "strategy": "m3u8_ffmpeg",
+    "reason": "HLS stream found with auth token embedded in the URL, so ffmpeg can directly download and mux segments.",
+    "params": {
+      "manifest_url": "https://cdn-aws-exp.cdnamz.me/playlists/b1d13053-5cb1-4b23-9b4d-88cc2beb5abc/u8lmahqjne.m3u8?md5=oGYM5geasWZrQdLj0XLvJQ&expires=1782401786",
+      "video_url": "",
+      "api_endpoint": "",
+      "headers": {},
+      "auth_in": "query_param",
+      "format": "mp4",
+      "quality": "best",
+      "target_url": "https://www9.pornhd3x.tv/movies/new-rachael-cavalli-taylor-vixxen-adira-allure-whitney-oc-andi-avalon-carpool-overload-25-06-2026-hardcore-milf-bigtits-roleplay-groupsex-iluvy-lulustream-com-doodstream-co",
+      "cookie_file": "output/cookies/www9_pornhd3x_tv.txt"
+    },
+    "confidence": 0.95,
+    "fallback": "m3u8_ytdlp",
+    "source": "llm",
+    "domain": "www9.pornhd3x.tv",
+    "retry_count": 3,
+    "rag_used": true,
+    "rag_matches": [
+      "www.pornhub.com",
+      "www.pornhub.com",
+      "www.pornhub.com"
+    ]
+  },
+  "signal_map": {
+    "domain": "www9.pornhd3x.tv",
+    "signals": {
+      "direct_video_tag": true,
+      "direct_video_srcs": [
+        "https://cdn-aws-exp.cdnamz.me/playlists/b1d13053-5cb1-4b23-9b4d-88cc2beb5abc/u8lmahqjne.m3u8?md5=oGYM5geasWZrQdLj0XLvJQ&expires=1782401786"
+      ],
+      "intercepted_api_success": true,
+      "intercepted_video_urls": [
+        "https://cdn-aws-exp.cdnamz.me/playlists/b1d13053-5cb1-4b23-9b4d-88cc2beb5abc/u8lmahqjne.m3u8?md5=oGYM5geasWZrQdLj0XLvJQ&expires=1782401786"
+      ],
+      "m3u8_found": true,
+      "m3u8_urls": [
+        "https://cdn-aws-exp.cdnamz.me/playlists/b1d13053-5cb1-4b23-9b4d-88cc2beb5abc/u8lmahqjne.m3u8?md5=oGYM5geasWZrQdLj0XLvJQ&expires=1782401786"
+      ],
+      "mpd_found": false,
+      "mpd_urls": [],
+      "blob_detected": false,
+      "api_video_endpoint": "https://www9.pornhd3x.tv/ajax/get_sources/E6N2UZCJBCY62UVU/b258f03e8798f77bfab8a105a04c5f80?count=1&mobile=false",
+      "same_domain_apis": [],
+      "auth_required": false,
+      "auth_headers": {},
+      "js_obfuscated": true,
+      "obfuscated_count": 3,
+      "player_library": "native_html5",
+      "hls_loader_in_js": false,
+      "ts_segments_found": false,
+      "cdn_detected": true
+    },
+    "network_summary": {
+      "total_requests": 124,
+      "high_priority_requests": [
+        {
+          "url": "https://www9.pornhd3x.tv/ajax/get_sources/E6N2UZCJBCY62UVU/b258f03e8798f77bfab8a105a04c5f80?count=1&mobile=false",
+          "type": "xhr",
+          "video_keys": {
+            "file": "https://cdn-aws-exp.cdnamz.me/playlists/b1d13053-5cb1-4b23-9b4d-88cc2beb5abc/u8lmahqjne.m3u8?md5=oGYM5geasWZrQdLj0XLvJQ&expires=1782401786"
+          }
+        }
+      ],
+      "all_api_endpoints": [
+        {
+          "url": "https://www9.pornhd3x.tv/ajax/get_sources/E6N2UZCJBCY62UVU/b258f03e8798f77bfab8a105a04c5f80?count=1&mobile=false",
+          "template": "https://www9.pornhd3x.tv/ajax/get_sources/E6N2UZCJBCY62UVU/{hash}",
+          "method": "GET",
+          "status": null,
+          "priority": "HIGH",
+          "video_keys_in_response": {
+            "file": "https://cdn-aws-exp.cdnamz.me/playlists/b1d13053-5cb1-4b23-9b4d-88cc2beb5abc/u8lmahqjne.m3u8?md5=oGYM5geasWZrQdLj0XLvJQ&expires=1782401786"
+          },
+          "same_domain": true
+        },
+        {
+          "url": "https://tsyndicate.com/do2/eddfe311f8354571a7c4835a2a74a448/vast?t=outstream&xu=380e70919bfa4b71&keywords=New%20Rachael%20Cavalli%20Taylor%20Vixxen%20Adira%20Allure%20Whitney%20OC%20Andi%20Avalon%20Carpool%20Overload%20(25-06-2026)%20%23Hardcore%20%23Milf%20%23Bigtits%20%23Roleplay%20%23Groupsex%20%23ILUVY%20lulustream.com%20doodstream.co%2CNew%20Rachael%20Cavalli%20Taylor%20Vixxen%20Adira%20Allure%20Whitney%20OC%20Andi%20Avalon%20Carpool%20Overload%20(25-06-2026)%20Hardcore%20Milf%20Bigtits%20Roleplay%20Groupsex%20ILUVY%20lulustream.com%20doodstream.co%2Cnew%2Crachael%2Ccavalli%2Ctaylor%2Cvixxen%2Cadira%2Callure%2Cwhitney%2Coc%2Candi%2Cavalon%2Ccarpool%2Coverload%2C25%2C06%2C2026%2Chardcore%2Cmilf%2Cbigtits%2Croleplay%2Cgroupsex%2Ciluvy%2Clulustream%2Ccom%2Cdoodstream%2Cco&w=1920&h=1080&tz=240",
+          "template": "https://tsyndicate.com/do2/{hash}/vast",
+          "method": "GET",
+          "status": null,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": false
+        },
+        {
+          "url": "https://tsyndicate.com/do2/72e561d1b4fe4426ba7e5676f754f82a/vast?t=im-slider&param3=video.instant.message.js&xu=380e70919bfa4b71&keywords=Download%20PornHD%2CBrazzers3x.com%2CBrazzers%2CNaughtyamerica%2CBangbros%20full%20hd%20free%202019%2C2020%20full%2Cwatch%20the%20best%20high%20definition%20adult%20porn%20videos.%20Pornstars%2Cmilfs%20%26%20amateurs%2Cfilmed%20exclusively%20by%20brazzers3x.me!%2CPornHD%2CPorn%20HD%2CBrazzers%20free%2CBrazzers%202019%2C2020%2CDownload%20PornHD%2CBrazzers%2CNaughtyamerica%2CBangbros%20Full%20HD%20free%202020%2CBrazzers3x%202019%20watch%20the%20best%20high%20definition%20adult%20porn%20videos&w=1920&h=1080&tz=240",
+          "template": "https://tsyndicate.com/do2/{id}{hash}/vast",
+          "method": "GET",
+          "status": 204,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": false
+        },
+        {
+          "url": "https://mc.yandex.ru/watch/56443000?wmode=7&page-url=https%3A%2F%2Fwww9.pornhd3x.tv%2F&page-ref=https%3A%2F%2Fwww9.pornhd3x.tv%2Fmovies%2Fnew-rachael-cavalli-taylor-vixxen-adira-allure-whitney-oc-andi-avalon-carpool-overload-25-06-2026-hardcore-milf-bigtits-roleplay-groupsex-iluvy-lulustream-com-doodstream-co&charset=utf-8&uah=chu%0A%22Chromium%22%3Bv%3D%22148%22%2C%22HeadlessChrome%22%3Bv%3D%22148%22%2C%22Not%2FA)Brand%22%3Bv%3D%2299%22%0Acha%0Ax86%0Achb%0A64%0Achf%0A148.0.7778.96%0Achl%0A%22Chromium%22%3Bv%3D%22148.0.7778.96%22%2C%22HeadlessChrome%22%3Bv%3D%22148.0.7778.96%22%2C%22Not%2FA)Brand%22%3Bv%3D%2299.0.0.0%22%0Achm%0A%3F0%0Achp%0AWindows%0Achv%0A10.0&browser-info=pv%3A1%3Avf%3Apupr1nz2snmtoqrshzj5yg66c90wv%3Afu%3A0%3Aen%3Autf-8%3Ala%3Aen-US%3Av%3A2550%3Acn%3A1%3Adp%3A0%3Als%3A1483160099351%3Ahid%3A319494327%3Az%3A-240%3Ai%3A20260625083628%3Aet%3A1782390988%3Ac%3A1%3Arn%3A301471464%3Arqn%3A1%3Au%3A1782390988397482632%3Aw%3A1920x1080%3As%3A1920x1080x24%3Ask%3A1%3Afp%3A692%3Awv%3A2%3Ads%3A0%2C0%2C209%2C12%2C1%2C0%2C%2C3425%2C15%2C%2C%2C%2C3651%3Aco%3A0%3Antf%3A1%3Ans%3A1782390984208%3Arqnl%3A1%3Ast%3A1782390988%3At%3ADownload%20PornHD%2C%20Brazzers%2C%20Naughtyamerica%2C%20Bangbros%20Full%20HD%20free%202020%2C%20Brazzers3x%202019%20watch%20the%20best%20high%20definition%20adult%20porn%20videos&t=clt(3598)gdpr(14)clc(0-0-0)rqnt(1)aw(1)rcm(0)cdl(na)eco(42009088)ti(1)",
+          "template": "https://mc.yandex.ru/watch/{id}",
+          "method": "GET",
+          "status": 302,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": false
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-KMLMQRRFLN&gtm=45je66n1v9124435990za20g&_p=1782390984883&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAI&are=1&cid=191747628.1782390989&frm=0&pscdl=noapi&rcb=8&sr=1920x1080&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938469~118395335~119027224&sid=1782390988&sct=1&seg=0&dl=https%3A%2F%2Fwww9.pornhd3x.tv%2F&dr=https%3A%2F%2Fwww9.pornhd3x.tv%2Fmovies%2Fnew-rachael-cavalli-taylor-vixxen-adira-allure-whitney-oc-andi-avalon-carpool-overload-25-06-2026-hardcore-milf-bigtits-roleplay-groupsex-iluvy-lulustream-com-doodstream-co&dt=Download%20PornHD%2C%20Brazzers%2C%20Naughtyamerica%2C%20Bangbros%20Full%20HD%20free%202020%2C%20Brazzers3x%202019%20watch%20the%20best%20high%20definition%20adult%20porn%20videos&en=page_view&_fv=1&_nsi=1&_ss=1&tfd=4413",
+          "template": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "status": 204,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": false
+        },
+        {
+          "url": "https://cdn.tsyndicate.com/dsp-pixels",
+          "template": "https://cdn.tsyndicate.com/dsp-pixels",
+          "method": "GET",
+          "status": 200,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": false
+        },
+        {
+          "url": "https://mc.yandex.ru/watch/56443000/1?wmode=7&page-url=https%3A%2F%2Fwww9.pornhd3x.tv%2F&page-ref=https%3A%2F%2Fwww9.pornhd3x.tv%2Fmovies%2Fnew-rachael-cavalli-taylor-vixxen-adira-allure-whitney-oc-andi-avalon-carpool-overload-25-06-2026-hardcore-milf-bigtits-roleplay-groupsex-iluvy-lulustream-com-doodstream-co&charset=utf-8&uah=chu%0A%22Chromium%22%3Bv%3D%22148%22%2C%22HeadlessChrome%22%3Bv%3D%22148%22%2C%22Not%2FA%29Brand%22%3Bv%3D%2299%22%0Acha%0Ax86%0Achb%0A64%0Achf%0A148.0.7778.96%0Achl%0A%22Chromium%22%3Bv%3D%22148.0.7778.96%22%2C%22HeadlessChrome%22%3Bv%3D%22148.0.7778.96%22%2C%22Not%2FA%29Brand%22%3Bv%3D%2299.0.0.0%22%0Achm%0A%3F0%0Achp%0AWindows%0Achv%0A10.0&browser-info=pv%3A1%3Avf%3Apupr1nz2snmtoqrshzj5yg66c90wv%3Afu%3A0%3Aen%3Autf-8%3Ala%3Aen-US%3Av%3A2550%3Acn%3A1%3Adp%3A0%3Als%3A1483160099351%3Ahid%3A319494327%3Az%3A-240%3Ai%3A20260625083628%3Aet%3A1782390988%3Ac%3A1%3Arn%3A301471464%3Arqn%3A1%3Au%3A1782390988397482632%3Aw%3A1920x1080%3As%3A1920x1080x24%3Ask%3A1%3Afp%3A692%3Awv%3A2%3Ads%3A0%2C0%2C209%2C12%2C1%2C0%2C%2C3425%2C15%2C%2C%2C%2C3651%3Aco%3A0%3Antf%3A1%3Ans%3A1782390984208%3Arqnl%3A1%3Ast%3A1782390988%3At%3ADownload%20PornHD%2C%20Brazzers%2C%20Naughtyamerica%2C%20Bangbros%20Full%20HD%20free%202020%2C%20Brazzers3x%202019%20watch%20the%20best%20high%20definition%20adult%20porn%20videos&t=clt%283598%29gdpr%2814%29clc%280-0-0%29rqnt%281%29aw%281%29rcm%280%29cdl%28na%29eco%2842009088%29ti%281%29&redirnss=1",
+          "template": "https://mc.yandex.ru/watch/{id}/{id}",
+          "method": "GET",
+          "status": 200,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": false
+        },
+        {
+          "url": "https://mc.yandex.ru/clmap/56443000?page-url=https%3A%2F%2Fwww9.pornhd3x.tv%2F&pointer-click=rn%3A256308138%3Ax%3A-501846%3Ay%3A-7547923%3At%3A56%3Ap%3A%3B7A1AA~A2%3AX%3A0%3AY%3A0&hidv2=3545180180021248283&browser-info=u%3A1782390988397482632%3Av%3A2550%3Avf%3Apupr1nz2snmtoqrshzj5yg66c90wv%3Arqnl%3A1%3Ast%3A1782390994&t=gdpr(14)ti(1)",
+          "template": "https://mc.yandex.ru/clmap/{id}",
+          "method": "GET",
+          "status": 200,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": false
+        },
+        {
+          "url": "https://www9.pornhd3x.tv/cdn-cgi/rum?",
+          "template": "https://www9.pornhd3x.tv/cdn-cgi/rum",
+          "method": "POST",
+          "status": 204,
+          "priority": "normal",
+          "video_keys_in_response": {},
+          "same_domain": true
+        }
+      ]
+    },
+    "confidence": 0.95
+  }
+}

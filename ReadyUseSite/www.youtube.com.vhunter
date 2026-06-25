@@ -1,0 +1,155 @@
+{
+  "domain": "www.youtube.com",
+  "signal_map": {
+    "confidence": 0.5,
+    "domain": "www.youtube.com",
+    "network_summary": {
+      "all_api_endpoints": [
+        {
+          "method": "POST",
+          "priority": "medium",
+          "same_domain": true,
+          "status": 200,
+          "template": "https://www.youtube.com/youtubei/v1/log_event",
+          "url": "https://www.youtube.com/youtubei/v1/log_event?alt=json",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "medium",
+          "same_domain": true,
+          "status": 200,
+          "template": "https://www.youtube.com/youtubei/v1/next",
+          "url": "https://www.youtube.com/youtubei/v1/next?prettyPrint=false",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "medium",
+          "same_domain": true,
+          "status": 200,
+          "template": "https://www.youtube.com/api/jnn/v1/GenerateIT",
+          "url": "https://www.youtube.com/api/jnn/v1/GenerateIT",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "medium",
+          "same_domain": true,
+          "status": 200,
+          "template": "https://www.youtube.com/api/timedtext",
+          "url": "https://www.youtube.com/api/timedtext?v=BAe4voD-_DE&ei=djY8avvRIOew8uMP7egl&caps=asr&opi=112496729&exp=xpe&xoaf=5&xowf=1&xospf=1&hl=ar&ip=0.0.0.0&ipbits=0&expire=1782356198&sparams=ip%2Cipbits%2Cexpire%2Cv%2Cei%2Ccaps%2Copi%2Cexp%2Cxoaf&signature=37159573166DAD054A51618B6F42CEB5EFC097D2.D4A04D1C3B0CF9EA69FF2262CBB8BD08DF07204A&key=yt8&lang=ar&potc=1&pot=MlWLiioUUOX-9Iu0b4sXPhltuEBLqGyR9l06VkmBG40ZSlwSGqjqgNa09upj94mO0kADieG63ECmia92n5GJmceNQ6UpshcqB5loXFAGGl19JVHQF3p_&fmt=json3&xorb=2&xobt=3&xovt=3&cbr=Chrome&cbrver=124.0.0.0&c=WEB&cver=2.20260623.01.00&cplayer=UNIPLAYER&cos=Windows&cosver=10.0&cplatform=DESKTOP",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "normal",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://rr2---sn-u0opnp5o5-u0od.googlevideo.com/videoplayback",
+          "url": "https://rr2---sn-u0opnp5o5-u0od.googlevideo.com/videoplayback?expire=1782352598&ei=djY8avvRIOew8uMP7egl&ip=154.110.120.39&id=o-AITogXGrbG5WE-hq79vH4MbutuRCSxOFwN2a3y4sh-mQ&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&cps=91&met=1782330998%2C&mh=l9&mm=31%2C29&mn=sn-u0opnp5o5-u0od%2Csn-hgn7rn7k&ms=au%2Crdu&mv=m&mvi=2&pl=23&rms=au%2Cau&initcwndbps=271250&spc=SQ-umg8fH5KGp6vxZBniGzMcG0mbXI1rlxKqlChxSHxCxic5BTgq9ABWF3T9fEoFxFhxaQ&svpuc=1&ns=RJQo5mK2k0PCdOnTDQ1zBmYW&sabr=1&rqh=1&mt=1782330568&fvip=1&keepalive=yes&fexp=51565116%2C51565682%2C51987687&c=WEB&n=60sLRUpyyGE_RQ&sparams=expire%2Cei%2Cip%2Cid%2Csource%2Crequiressl%2Cxpc%2Cspc%2Csvpuc%2Cns%2Csabr%2Crqh&sig=AHEqNM4wRgIhALZq1K4Or-iw5UPEo10SnPRyXRHKAOJOPs25JhwTTziSAiEAhhRLKjP5JOPT5CUfFf2FGxgKD1BvG8SArGtVghAP_g8%3D&lsparams=cps%2Cmet%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crms%2Cinitcwndbps&lsig=APaTxxMwRQIhANB-ir2rnE1YWY3UqT-TJUY8sXJQVa1ZJxpbNUrATewKAiAsZY1JR62CGjLPjoV41uxmO5f4ZL2BOi-vkuV2Bgmk3A%3D%3D&cpn=X1pD4AwpnLPybACs&cver=2.20260623.01.00&rn=1&alr=yes",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "normal",
+          "same_domain": false,
+          "status": 302,
+          "template": "https://googleads.g.doubleclick.net/pagead/id",
+          "url": "https://googleads.g.doubleclick.net/pagead/id",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "normal",
+          "same_domain": true,
+          "status": 204,
+          "template": "https://www.youtube.com/api/stats/qoe",
+          "url": "https://www.youtube.com/api/stats/qoe?fmt=398&cpn=X1pD4AwpnLPybACs&el=detailpage&ns=yt&fexp=v1%2C24004644%2C15321210%2C11737789%2C9105%2C22730%2C2821%2C124674%2C77203%2C65%2C13917%2C26504%2C9252%2C3479%2C13030%2C23206%2C69841%2C8206%2C2625%2C1904%2C18126%2C15105%2C25059%2C4174%2C12719%2C17728%2C18705%2C21437%2C4571%2C9671%2C19432%2C6620%2C2784%2C23826%2C9500%2C1840%2C14783%2C9776%2C5115%2C1847%2C14195%2C13159%2C45932%2C10619%2C2364%2C31949%2C6491%2C9932%2C1292%2C6633%2C249%2C82%2C29960%2C7524%2C718%2C5315%2C1168%2C372%2C490%2C2324%2C2630%2C2315%2C16624%2C8868%2C3475%2C5353%2C12390%2C1846%2C402%2C115%2C158%2C9259%2C2550%2C7345%2C1877%2C6689%2C7392%2C18357%2C2700&cl=934269876&seq=1&docid=BAe4voD-_DE&ei=djY8avvRIOew8uMP7egl&event=streamingstats&plid=AAZVBUYKdoBKQ8iW&cbr=Chrome&cbrver=124.0.0.0&c=WEB&cver=2.20260623.01.00&cplayer=UNIPLAYER&cos=Windows&cosver=10.0&cplatform=DESKTOP&vps=0.000:N,0.053:B,0.100:N,1.487:N&cat=streaming,sabr&cmt=0.053:0.000,0.100:0.000,1.487:0.000&vfs=1.487:398:398::a:sms.2:CAEoAQ&view=1.487:1470:827&bwm=1.487:149383:1.452&bwe=1.487:348846&bat=1.487:0.64:0&vis=1.487:0&bh=1.487:0.000&qclc=ChBYMXBENEF3cG5MUHliQUNzEAE",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "normal",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://fonts.gstatic.com/s/i/youtube_outline_experimental/search/v15/{id}px.svg",
+          "url": "https://fonts.gstatic.com/s/i/youtube_outline_experimental/search/v15/24px.svg",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "normal",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://fonts.gstatic.com/s/i/youtube_outline_experimental/menu/v1/{id}px.svg",
+          "url": "https://fonts.gstatic.com/s/i/youtube_outline_experimental/menu/v1/24px.svg",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "normal",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://www.gstatic.com/youtube/img/icons/web/youtube_fill/yt-logo-updated/v3/{id}px.svg",
+          "url": "https://www.gstatic.com/youtube/img/icons/web/youtube_fill/yt-logo-updated/v3/24px.svg",
+          "video_keys_in_response": {}
+        }
+      ],
+      "high_priority_requests": [],
+      "total_requests": 188
+    },
+    "signals": {
+      "api_video_endpoint": null,
+      "auth_headers": {},
+      "auth_required": false,
+      "blob_detected": true,
+      "cdn_detected": false,
+      "direct_video_srcs": [
+        "blob:https://www.youtube.com/c0ede342-d209-426d-89bf-7fe792b08f22"
+      ],
+      "direct_video_tag": true,
+      "hls_loader_in_js": false,
+      "js_obfuscated": true,
+      "m3u8_found": false,
+      "m3u8_urls": [],
+      "mpd_found": false,
+      "mpd_urls": [],
+      "obfuscated_count": 16,
+      "player_library": "dash.js",
+      "same_domain_apis": [
+        "https://www.youtube.com/youtubei/v1/log_event?alt=json",
+        "https://www.youtube.com/youtubei/v1/next?prettyPrint=false",
+        "https://www.youtube.com/api/jnn/v1/GenerateIT",
+        "https://www.youtube.com/api/timedtext?v=BAe4voD-_DE&ei=djY8avvRIOew8uMP7egl&caps=asr&opi=112496729&exp=xpe&xoaf=5&xowf=1&xospf=1&hl=ar&ip=0.0.0.0&ipbits=0&expire=1782356198&sparams=ip%2Cipbits%2Cexpire%2Cv%2Cei%2Ccaps%2Copi%2Cexp%2Cxoaf&signature=37159573166DAD054A51618B6F42CEB5EFC097D2.D4A04D1C3B0CF9EA69FF2262CBB8BD08DF07204A&key=yt8&lang=ar&potc=1&pot=MlWLiioUUOX-9Iu0b4sXPhltuEBLqGyR9l06VkmBG40ZSlwSGqjqgNa09upj94mO0kADieG63ECmia92n5GJmceNQ6UpshcqB5loXFAGGl19JVHQF3p_&fmt=json3&xorb=2&xobt=3&xovt=3&cbr=Chrome&cbrver=124.0.0.0&c=WEB&cver=2.20260623.01.00&cplayer=UNIPLAYER&cos=Windows&cosver=10.0&cplatform=DESKTOP"
+      ],
+      "ts_segments_found": false
+    }
+  },
+  "strategy": {
+    "confidence": 0.5,
+    "domain": "www.youtube.com",
+    "fallback": "ytdlp_generic",
+    "params": {
+      "api_endpoint": null,
+      "auth_in": "none",
+      "cookie_file": "output/cookies/www_youtube_com.txt",
+      "headers": {},
+      "manifest_url": null,
+      "output_format": "mp4",
+      "quality": "best",
+      "target_url": "https://www.youtube.com/watch?v=BAe4voD-_DE",
+      "video_url": "blob:https://www.youtube.com/c0ede342-d209-426d-89bf-7fe792b08f22"
+    },
+    "rag_matches": [
+      "www.damplips.com",
+      "www.pornhub.com"
+    ],
+    "rag_used": true,
+    "reason": "Direct video tag src is a blob URL and no m3u8 or MPD manifest found, indicating a MediaSource-based stream that requires browser capture.",
+    "retry_count": 0,
+    "source": "llm",
+    "strategy": "blob_capture"
+  },
+  "vhunter_version": 1
+}

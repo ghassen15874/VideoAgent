@@ -1,0 +1,156 @@
+{
+  "vhunter_version": 1,
+  "domain": "www.pornhub.com",
+  "strategy": {
+    "strategy": "ytdlp_generic",
+    "reason": "Pornhub is a major platform with obfuscated JS and no direct video or manifest URLs; yt-dlp's native extractor handles ads and authentication reliably.",
+    "params": {
+      "manifest_url": null,
+      "video_url": null,
+      "api_endpoint": null,
+      "headers": {},
+      "auth_in": "none",
+      "format": "mp4",
+      "quality": "best",
+      "target_url": "https://www.pornhub.com/view_video.php?viewkey=686fd764d23f9",
+      "cookie_file": "output/cookies/www_pornhub_com.txt"
+    },
+    "confidence": 0.85,
+    "fallback": "api_fetch",
+    "source": "llm",
+    "domain": "www.pornhub.com",
+    "retry_count": 2,
+    "rag_used": false,
+    "rag_matches": []
+  },
+  "signal_map": {
+    "domain": "www.pornhub.com",
+    "signals": {
+      "direct_video_tag": false,
+      "direct_video_srcs": [],
+      "m3u8_found": false,
+      "m3u8_urls": [],
+      "mpd_found": false,
+      "mpd_urls": [],
+      "blob_detected": false,
+      "api_video_endpoint": null,
+      "same_domain_apis": [
+        "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A5%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=5320325587",
+        "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A2190761%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=6843323152",
+        "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A2190771%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=5168153209",
+        "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A2412681%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=7453335567",
+        "https://www.pornhub.com/_xa/ads?zone_id=1845481&site_id=2&preroll_type=json&channel%5Bcontext_tag%5D=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel%5Bcontext_category%5D=Big-Ass%2CBBW%2CBig-Tits%2CBlowjob%2CCumshot%2CHandjob%2CMasturbation%2CMILF%2CPornstar%2CStep-Fantasy&channel%5Bcontext_pornstar%5D=Maggie-Green%2CJimmy-Michaels&channel%5Binfo%5D=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%2200c2983468eefab46bbf536b5e1c5fc3%22%2C%22session_id%22%3A%22707964995835946018%22%7D&noc=0&cache=1782332707&t_version=2026062401.ded8386&channel%5Bsite%5D=pornhub&width=1920&height=1080",
+        "https://www.pornhub.com/_xd/api/d/jsfp/bedd06808a1f7663bd804ece04656841",
+        "https://www.pornhub.com/_xd/api/link/c2dd5cbc-3665-a08f-0a11-386ffb32446b/origin/a/oldd/c2dd5cbc-3665-a08f-0a11-386ffb32446b",
+        "https://www.pornhub.com/front/menu_all_cached?segment=straight&token=MTc4MjMzMjcwN064sBZxPYhvXcCJXiZ1pjehZEccgAkPZQmGtR0NsDiFm5aTAkwH-SL4Ytzr1amoNddZoBByNPJxCyV_iV7BP1c.",
+        "https://www.pornhub.com/_xd/p/p/e",
+        "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_page_type]=category&channel[info]=%7B%22actor_id%22%3Anull%2C%22content_type%22%3Anull%2C%22video_id%22%3Anull%2C%22timestamp%22%3A1782332725%2C%22hash%22%3A%2280b53351f8aa2a4fc4934d0caf23d392%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[category]=Step-Fantasy&channel[site]=pornhub&site_id=2&device_type=tablet&hc=4EB33256-5809-4E7B-B73E-07E24DD761B6&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A5%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=7408484545"
+      ],
+      "auth_required": false,
+      "auth_headers": {},
+      "js_obfuscated": true,
+      "obfuscated_count": 26,
+      "player_library": null,
+      "hls_loader_in_js": false,
+      "ts_segments_found": false,
+      "cdn_detected": true
+    },
+    "network_summary": {
+      "total_requests": 302,
+      "high_priority_requests": [],
+      "all_api_endpoints": [
+        {
+          "url": "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A5%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=5320325587",
+          "template": "https://www.pornhub.com/_xa/ads_batch",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A2190761%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=6843323152",
+          "template": "https://www.pornhub.com/_xa/ads_batch",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A2190771%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=5168153209",
+          "template": "https://www.pornhub.com/_xa/ads_batch",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_pornstar]=Maggie-Green%2CJimmy-Michaels&channel[context_category]=BBW%2CBig-Ass%2CBig-Tits%2CBlowjob%2CCumshot%2CHD-Porn%2CHandjob%2CMILF%2CMasturbation%2CPornstar%2CStep-Fantasy&channel[context_tag]=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel[context_page_type]=video&channel[info]=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%226b64a662d986eeed36bd3b64180b1ffe%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[site]=pornhub&site_id=2&device_type=tablet&hc=473B31D8-0C5D-4F4A-9A7B-A21F25440840&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A2412681%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=7453335567",
+          "template": "https://www.pornhub.com/_xa/ads_batch",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xa/ads?zone_id=1845481&site_id=2&preroll_type=json&channel%5Bcontext_tag%5D=bbw%2Cbig-ass%2Cseduction%2Cbig-tits%2Cdeep-throating%2Cnubilesporn%2Clanding-strip-pussy%2Cfacial%2Cthick%2Cblowjob%2Chot-milf%2Chandjob%2Cfamily-secrets%2Cmasturbation%2Cfemale-orgasm%2Ccum-short&channel%5Bcontext_category%5D=Big-Ass%2CBBW%2CBig-Tits%2CBlowjob%2CCumshot%2CHandjob%2CMasturbation%2CMILF%2CPornstar%2CStep-Fantasy&channel%5Bcontext_pornstar%5D=Maggie-Green%2CJimmy-Michaels&channel%5Binfo%5D=%7B%22actor_id%22%3A24970942%2C%22content_type%22%3A%22partner%22%2C%22video_id%22%3A471609395%2C%22timestamp%22%3A1782332707%2C%22hash%22%3A%2200c2983468eefab46bbf536b5e1c5fc3%22%2C%22session_id%22%3A%22707964995835946018%22%7D&noc=0&cache=1782332707&t_version=2026062401.ded8386&channel%5Bsite%5D=pornhub&width=1920&height=1080",
+          "template": "https://www.pornhub.com/_xa/ads",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xd/api/d/jsfp/bedd06808a1f7663bd804ece04656841",
+          "template": "https://www.pornhub.com/_xd/api/d/jsfp/{hash}",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xd/api/link/c2dd5cbc-3665-a08f-0a11-386ffb32446b/origin/a/oldd/c2dd5cbc-3665-a08f-0a11-386ffb32446b",
+          "template": "https://www.pornhub.com/_xd/api/link/{hash}-3665-a08f-0a11-{hash}/origin/a/oldd/{hash}-3665-a08f-0a11-{hash}",
+          "method": "POST",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/front/menu_all_cached?segment=straight&token=MTc4MjMzMjcwN064sBZxPYhvXcCJXiZ1pjehZEccgAkPZQmGtR0NsDiFm5aTAkwH-SL4Ytzr1amoNddZoBByNPJxCyV_iV7BP1c.",
+          "template": "https://www.pornhub.com/front/menu_all_cached",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xd/p/p/e",
+          "template": "https://www.pornhub.com/_xd/p/p/e",
+          "method": "POST",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        },
+        {
+          "url": "https://www.pornhub.com/_xa/ads_batch?ads=true&clientType=mobile&channel[context_page_type]=category&channel[info]=%7B%22actor_id%22%3Anull%2C%22content_type%22%3Anull%2C%22video_id%22%3Anull%2C%22timestamp%22%3A1782332725%2C%22hash%22%3A%2280b53351f8aa2a4fc4934d0caf23d392%22%2C%22session_id%22%3A%22444479986895137766%22%7D&channel[category]=Step-Fantasy&channel[site]=pornhub&site_id=2&device_type=tablet&hc=4EB33256-5809-4E7B-B73E-07E24DD761B6&data=%5B%7B%22spots%22%3A%5B%7B%22zone%22%3A5%7D%5D%7D%5D&noc=0&dm=www.pornhub.com/_xa&width=1920&height=1080&v=7408484545",
+          "template": "https://www.pornhub.com/_xa/ads_batch",
+          "method": "GET",
+          "status": 200,
+          "priority": "medium",
+          "video_keys_in_response": {},
+          "same_domain": true
+        }
+      ]
+    },
+    "confidence": 0.05
+  }
+}

@@ -1,0 +1,15 @@
+flask>=3.0
+playwright>=1.44
+selenium>=4.21
+undetected-chromedriver>=3.5
+requests>=2.31
+langgraph>=0.2
+langchain-core>=0.2
+langchain-openai>=0.1
+langchain-google-genai>=1.0
+langchain-ollama>=0.1
+typing-extensions>=4.9
+tqdm>=4.66
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+numpy>=1.26

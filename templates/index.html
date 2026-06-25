@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VideoHunter AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0a0a0f;--surface:#12121a;--card:#1a1a26;--border:#2a2a3d;--accent:#7c3aed;--accent2:#06b6d4;--green:#10b981;--red:#ef4444;--text:#e2e8f0;--muted:#64748b;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none;z-index:0;}
+.orb1{width:600px;height:600px;background:var(--accent);top:-200px;left:-200px;}
+.orb2{width:500px;height:500px;background:var(--accent2);bottom:-150px;right:-150px;}
+.container{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:40px 20px;}
+header{text-align:center;margin-bottom:50px;}
+.logo{display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;}
+.logo-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.logo-text{font-size:28px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+header p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:20px;}
+.card-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px;}
+.url-input{width:100%;background:#0d0d18;border:1.5px solid var(--border);border-radius:12px;padding:16px 20px;color:var(--text);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;}
+.url-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,58,237,.15);}
+.url-input::placeholder{color:var(--muted);}
+.options-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
+.opt-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+.opt-select{width:100%;background:#0d0d18;border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;cursor:pointer;transition:border-color .2s;appearance:none;}
+.opt-select:focus{border-color:var(--accent);}
+.format-pills{display:flex;gap:10px;}
+.pill{flex:1;padding:12px;border:1.5px solid var(--border);border-radius:10px;background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;font-family:'Inter',sans-serif;}
+.pill.active{border-color:var(--accent);background:rgba(124,58,237,.15);color:#a78bfa;}
+.btn-analyze{width:100%;margin-top:20px;padding:16px;background:linear-gradient(135deg,var(--accent),#5b21b6);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .25s;}
+.btn-analyze:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(124,58,237,.4);}
+.btn-analyze:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-analyze .spinner{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin-right:10px;vertical-align:middle;}
+.btn-analyze.loading .spinner{display:inline-block;}
+.status-card{display:none;} .status-card.visible{display:block;}
+.status-bar{display:flex;align-items:center;gap:12px;padding:16px 20px;background:#0d0d18;border-radius:12px;margin-bottom:16px;}
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.dot-running{background:var(--accent2);animation:pulse 1.5s infinite;}
+.dot-done{background:var(--green);}
+.dot-error{background:var(--red);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.stat-box{background:#0d0d18;border-radius:12px;padding:16px;text-align:center;}
+.stat-num{font-size:26px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{font-size:11px;color:var(--muted);margin-top:4px;}
+.media-list{display:flex;flex-direction:column;gap:8px;max-height:250px;overflow-y:auto;}
+.media-item{background:#0d0d18;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:11px;word-break:break-all;color:var(--text);}
+.media-item .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-right:6px;text-transform:uppercase;}
+.badge-m3u8{background:rgba(6,182,212,.2);color:var(--accent2);}
+.badge-mp4{background:rgba(16,185,129,.2);color:var(--green);}
+.badge-mpd{background:rgba(124,58,237,.2);color:#a78bfa;}
+.badge-blob{background:rgba(239,68,68,.2);color:var(--red);}
+.badge-xhr{background:rgba(100,116,139,.2);color:var(--muted);}
+.json-block{background:#060610;border:1px solid var(--border);border-radius:10px;padding:16px;font-size:11px;font-family:monospace;overflow:auto;max-height:300px;color:#94a3b8;white-space:pre-wrap;word-break:break-all;}
+.script-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.script-path{font-size:12px;color:var(--accent2);}
+.copy-btn{padding:6px 14px;background:rgba(124,58,237,.2);border:1px solid var(--accent);border-radius:8px;color:#a78bfa;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;}
+.copy-btn:hover{background:rgba(124,58,237,.35);}
+.job-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#0d0d18;border-radius:10px;margin-bottom:8px;font-size:13px;}
+.job-url{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);}
+.job-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.job-done{background:rgba(16,185,129,.2);color:var(--green);}
+.job-running{background:rgba(6,182,212,.2);color:var(--accent2);}
+.job-error{background:rgba(239,68,68,.2);color:var(--red);}
+.empty-state{text-align:center;padding:40px;color:var(--muted);}
+@media(max-width:600px){.options-row{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="container">
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🎯</div>
+      <span class="logo-text">VideoHunter AI</span>
+    </div>
+    <p>Adaptive Media Extraction Agent — AI-powered browser automation with LangGraph pipeline</p>
+  </header>
+
+  <div class="card">
+    <!-- Mode toggle -->
+    <div style="display:flex;gap:10px;margin-bottom:20px;">
+      <button id="modeSingle" class="pill active" style="flex:1" onclick="setMode('single')">🔗 Single URL</button>
+      <button id="modeBatch"  class="pill"        style="flex:1" onclick="setMode('batch')">📋 Batch Queue</button>
+    </div>
+
+    <!-- Single mode -->
+    <div id="singlePanel">
+      <div class="card-title">🔗 Target URL</div>
+      <input id="urlInput" class="url-input" type="url" placeholder="https://example.com/video" autocomplete="off"/>
+    </div>
+
+    <!-- Batch mode -->
+    <div id="batchPanel" style="display:none">
+      <div class="card-title">📋 Batch URLs — one per line</div>
+      <textarea id="batchInput" class="url-input" rows="6"
+        placeholder="https://site1.com/video1&#10;https://site2.com/video2&#10;https://reddit.com/r/..."
+        style="resize:vertical;line-height:1.6;font-family:'Inter',sans-serif;"></textarea>
+      <div id="batchStatus" style="margin-top:10px;font-size:12px;color:var(--muted);">0 URLs detected</div>
+    </div>
+
+    <div class="options-row">
+      <div class="opt-group">
+        <label>Output Format</label>
+        <div class="format-pills">
+          <button class="pill active" onclick="setFormat('mp4',this)">🎬 MP4</button>
+          <button class="pill" onclick="setFormat('mp3',this)">🎵 MP3</button>
+        </div>
+      </div>
+      <div class="opt-group">
+        <label>Quality</label>
+        <select id="qualitySelect" class="opt-select">
+          <option value="best">⭐ Best Available</option>
+          <option value="1080p">1080p Full HD</option>
+          <option value="720p">720p HD</option>
+          <option value="480p">480p SD</option>
+          <option value="360p">360p Low</option>
+        </select>
+      </div>
+    </div>
+    <button id="analyzeBtn" class="btn-analyze" onclick="startAnalysis()">
+      <span class="spinner"></span>🚀 Analyze &amp; Extract
+    </button>
+  </div>
+
+
+
+  <div id="statusCard" class="card status-card">
+    <div class="card-title">📡 Pipeline Status</div>
+    <div id="statusBar" class="status-bar">
+      <div id="statusDot" class="status-dot dot-running"></div>
+      <span id="statusText">Initializing…</span>
+    </div>
+    <div id="statsGrid" class="results-grid" style="display:none">
+      <div class="stat-box"><div id="statRequests" class="stat-num">0</div><div class="stat-label">Network Requests</div></div>
+      <div class="stat-box"><div id="statMedia" class="stat-num">0</div><div class="stat-label">Media Signals</div></div>
+      <div class="stat-box"><div id="statBlobs" class="stat-num">0</div><div class="stat-label">Blob URLs</div></div>
+    </div>
+    
+    <div id="videoReadySection" style="display:none;margin-top:20px;padding:20px;background:rgba(16,185,129,0.1);border:1px solid var(--green);border-radius:12px;text-align:center;">
+        <h3 style="color:var(--green);margin-bottom:8px">🎉 Video Successfully Downloaded!</h3>
+        <p id="downloadUrlText" style="color:#e2e8f0;font-family:monospace"></p>
+    </div>
+
+    <div id="executionLogsSection" style="display:none;margin-top:20px">
+      <div class="card-title">⚙️ Download Logs</div>
+      <div id="executionLogsContent" class="json-block" style="color:#e2e8f0;"></div>
+    </div>
+
+    <div id="strategySection" style="display:none;margin-top:20px">
+      <div class="card-title">🧠 Chosen Strategy</div>
+      <div id="strategyContent" class="json-block"></div>
+    </div>
+    
+    <div id="scriptSection" style="display:none;margin-top:20px">
+      <div class="script-header">
+        <div class="card-title" style="margin:0">✍️ Generated Download Script</div>
+        <button class="copy-btn" onclick="copyScript()">📋 Copy</button>
+      </div>
+      <div id="scriptPath" class="script-path" style="margin-bottom:8px"></div>
+      <div id="scriptContent" class="json-block"></div>
+    </div>
+
+    <div id="mediaSection" style="display:none;margin-top:20px">
+      <div class="card-title">📦 Detected Media Signals</div>
+      <div id="mediaList" class="media-list"></div>
+    </div>
+    
+    <div id="metaSection" style="display:none;margin-top:20px">
+      <div class="card-title">📊 Bundle Meta</div>
+      <div id="metaJson" class="json-block"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Recent Jobs</div>
+    <div id="jobsList"><div class="empty-state"><p>🎯 Paste a URL above to start!</p></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="display:flex; justify-content:space-between; align-items:center">
+      <span>📦 Strategy Store</span>
+      <div style="display:flex; gap:10px; align-items:center">
+        <span id="storeCount" style="color:var(--accent2); font-weight:700">0 sites</span>
+        <label class="copy-btn" style="cursor:pointer; font-weight:600; margin:0">
+          📥 Import .vhunter
+          <input type="file" id="importFile" accept=".vhunter" style="display:none" onchange="importStrategy(event)">
+        </label>
+      </div>
+    </div>
+    <div id="storeList" style="max-height: 300px; overflow-y: auto; margin-top: 10px;">
+      <div class="empty-state"><p>No strategies in memory yet.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentFormat = 'mp4';
+let currentMode   = 'single';
+let pollInterval  = null;
+let failCount     = 0;
+let batchPollInterval = null;
+
+// ── Mode toggle ────────────────────────────────────────────────────────────
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('singlePanel').style.display = mode === 'single' ? '' : 'none';
+  document.getElementById('batchPanel').style.display  = mode === 'batch'  ? '' : 'none';
+  document.getElementById('modeSingle').classList.toggle('active', mode === 'single');
+  document.getElementById('modeBatch').classList.toggle('active',  mode === 'batch');
+  const btn = document.getElementById('analyzeBtn');
+  btn.querySelector('.btn-text') && (btn.querySelector('.btn-text').textContent =
+    mode === 'batch' ? '🚀 Start Batch Download' : '🚀 Analyze & Extract');
+}
+
+// Live URL counter for batch textarea
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('batchInput').addEventListener('input', () => {
+    const urls = getBatchUrls();
+    document.getElementById('batchStatus').textContent =
+      urls.length ? `✅ ${urls.length} valid URL${urls.length>1?'s':''} ready` : '0 URLs detected';
+  });
+});
+
+function getBatchUrls() {
+  return (document.getElementById('batchInput').value || '')
+    .split('\n')
+    .map(u => u.trim())
+    .filter(u => u.startsWith('http'));
+}
+
+function setFormat(fmt, el){
+  currentFormat = fmt;
+  document.querySelectorAll('.pill').forEach(p => {
+    if(p.closest('.format-pills')) p.classList.remove('active');
+  });
+  el.classList.add('active');
+}
+
+// ── Start ──────────────────────────────────────────────────────────────────
+function startAnalysis(){
+  if (currentMode === 'batch') { startBatch(); return; }
+
+  const url = document.getElementById('urlInput').value.trim();
+  if(!url.startsWith('http')){ alert('Please enter a valid URL starting with http'); return; }
+  if(pollInterval){ clearInterval(pollInterval); pollInterval = null; }
+  failCount = 0;
+
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true; btn.classList.add('loading');
+
+  ['statsGrid','mediaSection','metaSection','strategySection','scriptSection','executionLogsSection','videoReadySection']
+    .forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('statusCard').classList.add('visible');
+  setStatus('running','🌐 Opening browser — intercepting network traffic…');
+
+  fetch('/api/analyze',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({url, format: currentFormat, quality: document.getElementById('qualitySelect').value})
+  })
+  .then(r=>r.json())
+  .then(data=>{ if(data.error){setStatus('error',data.error);resetBtn();return;} pollJob(data.job_id); })
+  .catch(e=>{ setStatus('error','Request failed: '+e); resetBtn(); });
+}
+
+// ── Batch ──────────────────────────────────────────────────────────────────
+function startBatch(){
+  const urls = getBatchUrls();
+  if(!urls.length){ alert('Please enter at least one valid URL (starting with http)'); return; }
+
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true; btn.classList.add('loading');
+  if(batchPollInterval){ clearInterval(batchPollInterval); }
+
+  fetch('/api/batch',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({urls, format: currentFormat, quality: document.getElementById('qualitySelect').value})
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.error){ alert('Batch error: '+data.error); resetBtn(); return; }
+    renderBatchQueue(data.batch_ids);
+    pollBatch(data.batch_ids);
+  })
+  .catch(e=>{ alert('Request failed: '+e); resetBtn(); });
+}
+
+function renderBatchQueue(ids){
+  document.getElementById('jobsList').innerHTML =
+    `<div style="font-size:12px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">
+      📋 Batch Queue — ${ids.length} items
+     </div>` +
+    ids.map((id,i) => {
+      const url = (document.getElementById('batchInput').value||'').split('\n').map(u=>u.trim()).filter(u=>u.startsWith('http'))[i] || id;
+      return `<div id="brow-${id}" class="job-row">
+        <span style="font-size:10px;color:var(--muted);min-width:20px">#${i+1}</span>
+        <div class="job-url" title="${url}">${url}</div>
+        <span id="bbadge-${id}" class="job-badge job-queued" style="background:rgba(100,116,139,.2);color:var(--muted)">queued</span>
+      </div>`;
+    }).join('');
+}
+
+function pollBatch(ids){
+  let allDone = false;
+  batchPollInterval = setInterval(()=>{
+    Promise.all(ids.map(id => fetch('/api/status/'+id).then(r=>r.json()).catch(()=>null)))
+    .then(results=>{
+      results.forEach((job,i)=>{
+        if(!job) return;
+        const id = ids[i];
+        const badge = document.getElementById('bbadge-'+id);
+        if(!badge) return;
+        if(job.status==='running'){
+          badge.className='job-badge job-running'; badge.textContent='⏳ running';
+        } else if(job.status==='done'){
+          const ok = job.result?.success;
+          badge.className='job-badge '+(ok?'job-done':'job-error');
+          badge.textContent = ok ? '✅ done' : '❌ failed';
+          const row = document.getElementById('brow-'+id);
+          if(row && ok && job.result?.download_url){
+            row.title = 'Saved: '+job.result.download_url;
+          }
+        } else if(job.status==='error'){
+          badge.className='job-badge job-error'; badge.textContent='❌ error';
+        } else if(job.status==='queued'){
+          badge.textContent='⏸ queued';
+        }
+      });
+      allDone = results.every(j=>j && j.status!=='running' && j.status!=='queued');
+      if(allDone){ clearInterval(batchPollInterval); resetBtn();
+        const done = results.filter(j=>j?.result?.success).length;
+        document.getElementById('batchStatus').textContent =
+          `✅ Batch complete — ${done}/${ids.length} downloaded successfully`;
+      }
+    });
+  }, 2500);
+}
+
+// ── Single job poll (unchanged) ────────────────────────────────────────────
+function pollJob(jobId){
+  const stages = [
+    '🌐 Browser opened — loading page…','🕸️ Intercepting XHR & Fetch requests…',
+    '🔍 Hooking Blob URL creation…','📄 Scanning video/audio elements…',
+    '🔎 Analyzing JavaScript patterns…','📡 Reverse Engineering Agent running…',
+    '🧠 Strategy Builder + AI reasoning…','✍️ Generating download script…',
+    '⏳ Executing downloader script... (This might take a while)','💾 Saving to memory & FAISS index…',
+  ];
+  let stage = 0;
+  pollInterval = setInterval(()=>{
+    setStatus('running', stages[stage % stages.length]);
+    stage++;
+    fetch('/api/status/'+jobId)
+    .then(r=>{ if(!r.ok){failCount++;if(failCount>5){clearInterval(pollInterval);setStatus('error','❌ Server connection lost');resetBtn();}return null;} failCount=0;return r.json();})
+    .then(job=>{
+      if(!job) return;
+      if (job.live_logs) {
+        document.getElementById('executionLogsSection').style.display = 'block';
+        const logsEl = document.getElementById('executionLogsContent');
+        logsEl.textContent = job.live_logs;
+        logsEl.scrollTop = logsEl.scrollHeight;
+      }
+      if(job.status==='done'){clearInterval(pollInterval);showResults(job.result);resetBtn();refreshJobs();}
+      else if(job.status==='error'){clearInterval(pollInterval);setStatus('error','❌ '+(job.error||'Unknown error'));resetBtn();refreshJobs();}
+    })
+    .catch(e=>{failCount++;if(failCount>5){clearInterval(pollInterval);setStatus('error','❌ '+e);resetBtn();}});
+  }, 2000);
+}
+
+function showResults(res){
+  if(!res) return;
+  const memHit = res.memory_hit ? '⚡ Cache HIT' : '🔍 Full Analysis';
+  setStatus('done', `✅ ${memHit} — ${res.meta?.request_count||0} requests via ${res.analyzer||'playwright'}`);
+  document.getElementById('statsGrid').style.display='grid';
+  document.getElementById('statRequests').textContent = res.meta?.request_count||0;
+  document.getElementById('statMedia').textContent    = res.media_requests?.length||0;
+  document.getElementById('statBlobs').textContent    = res.blob_urls?.length||0;
+  const vr = document.getElementById('videoReadySection');
+  if (res.success && res.download_url) {
+    vr.style.display='block';
+    vr.style.background='rgba(16,185,129,0.1)'; vr.style.border='1px solid var(--green)';
+    vr.innerHTML=`<h3 style="color:var(--green);margin-bottom:8px">🎉 Video Successfully Downloaded!</h3>
+                  <p style="color:#e2e8f0;font-family:monospace">Saved to: ${res.download_url}</p>`;
+  } else if (!res.success) {
+    vr.style.display='block';
+    vr.style.background='rgba(255,50,50,0.1)'; vr.style.border='1px solid var(--red)';
+    vr.innerHTML='<h3 style="color:var(--red)">❌ Download Failed</h3><p>Check the execution logs below.</p>';
+  }
+  if(res.execution_logs){ document.getElementById('executionLogsSection').style.display='block'; document.getElementById('executionLogsContent').textContent=res.execution_logs; }
+  if(res.strategy){ document.getElementById('strategySection').style.display='block'; document.getElementById('strategyContent').textContent=JSON.stringify({strategy:res.strategy.strategy,reason:res.strategy.reason,confidence:res.strategy.confidence,source:res.strategy.source,fallback:res.strategy.fallback,params:res.strategy.params},null,2); }
+  if(res.script){ document.getElementById('scriptSection').style.display='block'; document.getElementById('scriptPath').textContent='📄 '+res.script_path; document.getElementById('scriptContent').textContent=res.script; }
+  if(res.media_requests?.length){
+    document.getElementById('mediaSection').style.display='block';
+    document.getElementById('mediaList').innerHTML=res.media_requests.map(r=>{
+      const u=r.url||''; let b='xhr';
+      if(r.type==='mpd'||u.includes('.mpd'))b='mpd';
+      else if(r.type==='m3u8'||u.includes('.m3u8'))b='m3u8';
+      else if(u.includes('.mp4'))b='mp4';
+      else if(u.startsWith('blob:'))b='blob';
+      return `<div class="media-item"><span class="badge badge-${b}">${r.type||b}</span><strong>${r.method||'GET'}</strong> ${u}</div>`;
+    }).join('');
+  }
+  if(res.meta){ document.getElementById('metaSection').style.display='block'; document.getElementById('metaJson').textContent=JSON.stringify(res.meta,null,2); }
+}
+
+function copyScript(){ navigator.clipboard.writeText(document.getElementById('scriptContent').textContent).then(()=>alert('Script copied!')); }
+function setStatus(type,msg){ document.getElementById('statusDot').className='status-dot '+(type==='running'?'dot-running':type==='done'?'dot-done':'dot-error'); document.getElementById('statusText').textContent=msg; }
+function resetBtn(){ const b=document.getElementById('analyzeBtn'); b.disabled=false; b.classList.remove('loading'); }
+function refreshJobs(){
+  fetch('/api/jobs').then(r=>r.json()).then(jobs=>{
+    if(!jobs.length||currentMode==='batch') return;
+    document.getElementById('jobsList').innerHTML=jobs.reverse().map(j=>
+      `<div class="job-row"><div class="job-url" title="${j.url}">${j.url}</div>
+       <span style="font-size:11px;color:var(--muted)">${j.format||'mp4'}·${j.quality||'best'}</span>
+       <span class="job-badge job-${j.status}">${j.status}</span></div>`
+    ).join('');
+  });
+}
+// ── Store / Memory ──────────────────────────────────────────────────────────
+function refreshStore(){
+  fetch('/api/store').then(r=>r.json()).then(sites=>{
+    if(!sites || !sites.length) return;
+    document.getElementById('storeCount').textContent = sites.length + (sites.length===1?' site':' sites');
+    document.getElementById('storeList').innerHTML = sites.map(s=>`
+      <div class="job-row" style="justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+          <strong style="color:var(--text);font-size:14px">${s.domain}</strong>
+          <span style="font-size:10px;color:var(--muted)">Used ${s.use_count} times · ${(s.success_rate*100).toFixed(0)}% success</span>
+        </div>
+        <button class="copy-btn" onclick="exportStrategy('${s.domain}')">📤 Export</button>
+      </div>
+    `).join('');
+  }).catch(e=>console.error('Store error:', e));
+}
+
+function exportStrategy(domain){
+  fetch('/api/export/'+domain).then(r=>r.json()).then(data=>{
+    if(data.error){ alert(data.error); return; }
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = domain + '.vhunter';
+    a.click();
+  }).catch(e=>alert('Export failed: '+e));
+}
+
+function importStrategy(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if(!data.domain || !data.strategy) throw new Error("Invalid .vhunter format");
+      fetch('/api/import', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      }).then(r=>r.json()).then(res=>{
+        if(res.error) alert(res.error);
+        else { alert(`✅ Successfully imported strategy for: ${res.domain}`); refreshStore(); }
+      });
+    } catch(err) { alert('Invalid file format: ' + err); }
+  };
+  reader.readAsText(file);
+  event.target.value = ''; // reset
+}
+
+refreshStore();
+setInterval(()=>{ if(currentMode==='single') refreshJobs(); }, 5000);
+</script>
+
+</body>
+</html>

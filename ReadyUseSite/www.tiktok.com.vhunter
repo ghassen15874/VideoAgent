@@ -1,0 +1,173 @@
+{
+  "domain": "www.tiktok.com",
+  "signal_map": {
+    "confidence": 0.7,
+    "domain": "www.tiktok.com",
+    "network_summary": {
+      "all_api_endpoints": [
+        {
+          "method": "GET",
+          "priority": "HIGH",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://mon.tiktokv.com/monitor_web/settings/browser-settings",
+          "url": "https://mon.tiktokv.com/monitor_web/settings/browser-settings?bid=pns_communication_service&store=1",
+          "video_keys_in_response": {
+            "url": "https://sf16-short-va.bytedapm.com/slardar/heatmap/resource/heatmap.maliva.js"
+          }
+        },
+        {
+          "content_type": "video/mp4",
+          "method": "GET",
+          "priority": "HIGH",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://v16-webapp.tiktok.com/{id}{hash}/{id}a3ed9a6/video/tos/no1a/tos-no1a-v-0037-no/{id}{hash}/",
+          "url": "https://v16-webapp.tiktok.com/177c19e3ea65c5c0fcb05a95056d977f/6a3ed9a6/video/tos/no1a/tos-no1a-v-0037-no/10fd319b2e8c4a41b3518ef204efdf3b/?a=1988&bti=ODszNWYuMDE6&&bt=7328&ft=-ElcomXnPD12NxXWWn-Ux~.2NY6e3wv25scAp&mime_type=video_mp4&rc=am86PHQ5cnVkOzMzbzczNUBpam86PHQ5cnVkOzMzbzczNUBkMjVrMmRzY2JhLS1kMTFzYSNkMjVrMmRzY2JhLS1kMTFzcw%3D%3D&l=202606250356479A9C6871E8AC9C0E1B3F&btag=e00048000",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "HIGH",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://mon.tiktokv.com/monitor_web/settings/browser-settings",
+          "url": "https://mon.tiktokv.com/monitor_web/settings/browser-settings?bid=webmssdk&store=1",
+          "video_keys_in_response": {
+            "url": "https://sf16-short-va.bytedapm.com/slardar/heatmap/resource/heatmap.maliva.js"
+          }
+        },
+        {
+          "method": "GET",
+          "priority": "medium",
+          "same_domain": true,
+          "status": 200,
+          "template": "https://www.tiktok.com/tiktok/popup/dispatch/v1",
+          "url": "https://www.tiktok.com/tiktok/popup/dispatch/v1?region=TN&priority_region=TN&aid=1988&device_id=7655053378398045703&app_language=en&device_platform=web_pc&WebIdLastTime=1782331007&scene=0",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "medium",
+          "same_domain": true,
+          "status": 200,
+          "template": "https://www.tiktok.com/ttwid/check/",
+          "url": "https://www.tiktok.com/ttwid/check/",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "medium",
+          "same_domain": true,
+          "status": 200,
+          "template": "https://www.tiktok.com/tiktok/pns/privacy_headers",
+          "url": "https://www.tiktok.com/tiktok/pns/privacy_headers?aid=1233",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "normal",
+          "same_domain": false,
+          "status": null,
+          "template": "https://mon.tiktokv.com/monitor_web/settings/browser-settings",
+          "url": "https://mon.tiktokv.com/monitor_web/settings/browser-settings?bid=slardar_us_waf&store=1",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "normal",
+          "same_domain": false,
+          "status": 200,
+          "template": "https://libraweb-sg.tiktok.com/service/{id}/abtest_config/",
+          "url": "https://libraweb-sg.tiktok.com/service/2/abtest_config/",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "POST",
+          "priority": "normal",
+          "same_domain": false,
+          "status": null,
+          "template": "https://mcs-sg.tiktokv.com/v1/list",
+          "url": "https://mcs-sg.tiktokv.com/v1/list",
+          "video_keys_in_response": {}
+        },
+        {
+          "method": "GET",
+          "priority": "normal",
+          "same_domain": false,
+          "status": null,
+          "template": "https://v16-webapp-prime.tiktok.com/video/tos/no1a/tos-no1a-ve-{hash}-no/oMIjfIUAUvIdpvC5DLQlrOFwfFgDDAf1EXInKb/",
+          "url": "https://v16-webapp-prime.tiktok.com/video/tos/no1a/tos-no1a-ve-0068c001-no/oMIjfIUAUvIdpvC5DLQlrOFwfFgDDAf1EXInKb/?a=1988&bti=ODszNWYuMDE6&&bt=604&ft=-Csk_mXnPD12NxXWWn-Ux~.2NY6e3wv25scAp&mime_type=video_mp4&rc=NTU3OGRnNTM6OmdnOGQ7NkBpam86PHQ5cnVkOzMzbzczNUA1MTUyLS0uNWMxXmBhMy4xYSNkMjVrMmRzY2JhLS1kMTFzcw%3D%3D&expire=1782503846&l=202606250356479A9C6871E8AC9C0E1B3F&ply_type=2&policy=2&signature=3e072231fd1fab6ced2312b0671cff79&tk=tt_chain_token&btag=e00088000",
+          "video_keys_in_response": {}
+        }
+      ],
+      "high_priority_requests": [
+        {
+          "type": "xhr",
+          "url": "https://mon.tiktokv.com/monitor_web/settings/browser-settings?bid=pns_communication_service&store=1",
+          "video_keys": {
+            "url": "https://sf16-short-va.bytedapm.com/slardar/heatmap/resource/heatmap.maliva.js"
+          }
+        },
+        {
+          "type": "xhr",
+          "url": "https://mon.tiktokv.com/monitor_web/settings/browser-settings?bid=webmssdk&store=1",
+          "video_keys": {
+            "url": "https://sf16-short-va.bytedapm.com/slardar/heatmap/resource/heatmap.maliva.js"
+          }
+        }
+      ],
+      "total_requests": 217
+    },
+    "signals": {
+      "api_video_endpoint": "https://mon.tiktokv.com/monitor_web/settings/browser-settings?bid=pns_communication_service&store=1",
+      "auth_headers": {},
+      "auth_required": false,
+      "blob_detected": true,
+      "cdn_detected": true,
+      "direct_video_srcs": [
+        "blob:https://www.tiktok.com/34e2b453-c21e-41bb-adbd-8661da1a317e"
+      ],
+      "direct_video_tag": true,
+      "hls_loader_in_js": false,
+      "js_obfuscated": true,
+      "m3u8_found": false,
+      "m3u8_urls": [],
+      "mpd_found": false,
+      "mpd_urls": [],
+      "obfuscated_count": 5,
+      "player_library": null,
+      "same_domain_apis": [
+        "https://www.tiktok.com/tiktok/popup/dispatch/v1?region=TN&priority_region=TN&aid=1988&device_id=7655053378398045703&app_language=en&device_platform=web_pc&WebIdLastTime=1782331007&scene=0",
+        "https://www.tiktok.com/ttwid/check/",
+        "https://www.tiktok.com/tiktok/pns/privacy_headers?aid=1233"
+      ],
+      "ts_segments_found": false
+    }
+  },
+  "strategy": {
+    "confidence": 0.7,
+    "domain": "www.tiktok.com",
+    "fallback": "ytdlp_generic",
+    "params": {
+      "api_endpoint": null,
+      "auth_in": "none",
+      "cookie_file": "output/cookies/www_tiktok_com.txt",
+      "headers": {},
+      "manifest_url": null,
+      "output_format": "mp4",
+      "quality": "best",
+      "target_url": "https://www.tiktok.com/@charlixcx/video/7646178293485407510",
+      "video_url": "blob:https://www.tiktok.com/34e2b453-c21e-41bb-adbd-8661da1a317e"
+    },
+    "rag_matches": [
+      "www.damplips.com"
+    ],
+    "rag_used": true,
+    "reason": "Direct video source is a blob URL, indicating MediaSource streaming; no m3u8 or mpd found, so capture via browser is required.",
+    "retry_count": 0,
+    "source": "llm",
+    "strategy": "blob_capture"
+  },
+  "vhunter_version": 1
+}
