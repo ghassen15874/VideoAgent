@@ -267,22 +267,27 @@ header p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto;}
   </div>
 
   <div class="card store-card">
-    <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-      <div style="display:flex; align-items:center; gap: 15px;">
-        <span style="font-size: 15px; color: #fff;">📦 Strategy Store</span>
-        <div class="mode-toggle">
+    <div class="card-title" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:15px; margin-bottom: 20px;">
+      
+      <div style="display:flex; align-items:center; gap:20px; flex: 1; min-width: max-content;">
+        <span style="font-size: 15px; color: #fff; white-space: nowrap; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">📦 Strategy Store</span>
+        <div class="mode-toggle" style="flex-shrink: 0;">
           <div class="mode-btn active" id="btnLocalStore" onclick="switchStore('local')">Local Memory</div>
           <div class="mode-btn" id="btnCloudStore" onclick="switchStore('cloud')">☁️ Cloud Community</div>
         </div>
       </div>
-      <div style="display:flex; gap:12px; align-items:center">
+      
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap: wrap; justify-content: flex-end;">
         <input type="text" id="storeSearch" class="store-search" placeholder="Search domains..." onkeyup="handleStoreSearch()">
-        <span id="storeCount" style="color:var(--accent2); font-weight:700; font-size: 13px;">0 sites</span>
-        <label class="copy-btn" id="btnImportVhunter" style="cursor:pointer; font-weight:600; margin:0; background: rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.4); color: var(--accent2);">
-          📥 Import .vhunter
-          <input type="file" id="importFile" accept=".vhunter" style="display:none" onchange="importStrategy(event)">
-        </label>
+        <span id="storeCount" style="color:var(--accent2); font-weight:700; font-size: 13px; white-space: nowrap;">0 sites</span>
+        <div id="importBtnContainer" style="min-width: 135px; display: flex; justify-content: flex-end;">
+          <label class="copy-btn" id="btnImportVhunter" style="cursor:pointer; font-weight:600; margin:0; background: rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.4); color: var(--accent2); white-space: nowrap; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">
+            📥 Import .vhunter
+            <input type="file" id="importFile" accept=".vhunter" style="display:none" onchange="importStrategy(event)">
+          </label>
+        </div>
       </div>
+      
     </div>
     <div id="storeList" style="max-height: 350px; overflow-y: auto; padding-right: 5px;">
       <div class="empty-state"><p>No strategies yet.</p></div>
@@ -535,7 +540,16 @@ function switchStore(mode){
   currentStoreMode = mode;
   document.getElementById('btnLocalStore').classList.toggle('active', mode==='local');
   document.getElementById('btnCloudStore').classList.toggle('active', mode==='cloud');
-  document.getElementById('btnImportVhunter').style.display = mode==='local' ? 'block' : 'none';
+  const importBtn = document.getElementById('btnImportVhunter');
+  if (mode === 'local') {
+    importBtn.style.visibility = 'visible';
+    importBtn.style.opacity = '1';
+    importBtn.style.pointerEvents = 'auto';
+  } else {
+    importBtn.style.visibility = 'hidden';
+    importBtn.style.opacity = '0';
+    importBtn.style.pointerEvents = 'none';
+  }
   refreshStore();
 }
 
