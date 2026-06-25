@@ -271,5 +271,9 @@ def admin_upload():
     except Exception as e:
         return f"Error: {e}", 400
 
+@app.route("/")
+def index():
+    return redirect("/admin")
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
